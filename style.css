@@ -6,12 +6,19 @@ body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
   background: #222;
-  background-image: url("https://source.unsplash.com/1600x900/?landscape");
+  background-image: url("https://picsum.photos/1600/900/?blur");
   background-size: cover;
   font-size: 120%;
+  transition: all 1.2s;
 }
-
+.c {
+  margin-left: -40px;
+}
+.f {
+  margin-left: -70px;
+}
 .card {
+  position: relative;
   background: #000000d0;
   color: white;
   padding: 2em;
@@ -27,7 +34,7 @@ body {
   justify-content: center;
 }
 
-button {
+#switch {
   margin: 0.5em;
   border-radius: 50%;
   border: none;
@@ -90,8 +97,111 @@ h1.temp-F {
   left: 20px;
 }
 
-.temperature {
-  display: flex;
-  /* justify-content: space-between; */
-  gap: 40px;
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  margin-bottom: 15px;
+  margin-right: 75px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(114, 112, 112);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.fahrenheit {
+  display: none;
+  color: white;
+}
+.celsius,
+.fahrenheit {
+  color: black;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 140%;
+  font-size: 15px;
+  font-family: Verdana, sans-serif;
+}
+
+input:checked + .slider .fahrenheit {
+  display: block;
+}
+input:checked + .slider .celsius {
+  display: none;
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.toggle-btn {
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  padding: 20px;
+}
+
+.contrast {
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #222;
+}
+
+.darkmode {
+  filter: invert(1);
+}
+.light-mode {
+  background-color: rgba(255, 255, 255, 0.922);
+  color: black;
+  opacity: 90%;
+}
+#toggler {
+  background-color: black;
+  color: white;
+  position: fixed;
+  top: 10%;
+  right: 10%;
+}
+input.change {
+  color: black;
 }

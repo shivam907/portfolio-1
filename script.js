@@ -1,3 +1,4 @@
+let temp1save, temp2save = 0;
 let weather = {
   apiKey: "e1b292964b3c86ad361260f80c9496e0",
   fetchWeather: function (city) {
@@ -20,14 +21,18 @@ let weather = {
     const { name } = data;
     const { icon, description } = data.weather[0];
     const { temp, humidity } = data.main;
+    const temp2 = temp * 1.8 + 32;
     const { speed } = data.wind;
     document.querySelector(".city").innerText = "Weather in " + name;
     document.querySelector(".icon").src =
       "https://openweathermap.org/img/wn/" + icon + ".png";
     document.querySelector(".description").innerText = description;
-    document.querySelector(".temp").innerText = temp + "°C";
-    document.querySelector(".temp-F").innerText =
-      (temp * (9 / 5) + 32).toFixed(2) + "°F";
+
+    !document.querySelector("#checkbox").checked ? document.querySelector(".temp").innerText = temp + "℃" :
+    document.querySelector(".temp").innerText = temp2 + "℉";
+    temp1save = temp;
+    temp2save = temp2;
+
     document.querySelector(".humidity").innerText =
       "Humidity: " + humidity + "%";
     document.querySelector(".wind").innerText =
@@ -53,4 +58,44 @@ document
     }
   });
 
-weather.fetchWeather("Nashik");
+weather.fetchWeather("Ropar");
+
+function onTempChange() {
+  !document.querySelector("#checkbox").checked ? 
+  document.querySelector(".temp").innerText = temp1save + "℃" :
+  document.querySelector(".temp").innerText = temp2save + "℉";
+}
+
+let darkMode = localStorage.getItem('darkMode');
+const darkModeToggle = document.querySelector('.toggle-btn')
+//check if Dark mode is enabled
+// if its enabled turn it off
+// else turn it on
+const enableDarkMode = ()=>{
+document.body.classList.add('darkmode');
+localStorage.setItem('darkMode','enabled')
+}
+
+const disableDarkMode = ()=>{
+document.body.classList.remove('darkmode');
+localStorage.setItem('darkMode',null)
+}
+
+
+darkModeToggle.addEventListener('click',()=>{
+  darkMode = localStorage.getItem('darkMode');
+  if (darkMode != 'enabled') {
+    enableDarkMode();
+    console.log(darkMode);
+  }
+  else{
+    disableDarkMode();
+    console.log(darkMode);
+  }
+})
+function myFunction(){
+  var element = document.getElementById('box');
+   element.classList.toggle("light-mode");
+  var e2= document.getElementById('search');
+  e2.classList.toggle("change")
+}
